@@ -19,7 +19,6 @@ source /c14scratch/apps/modules/init/bash
 source /c14scratch/apps/intel/2021/setvars.sh
 
 module load mpi/latest
-#module load siesta/5.4
 module load fftw-3/3.3.10
 
 module load mkl/2024.2
@@ -30,7 +29,6 @@ echo Working directory is $PBS_O_WORKDIR
 NPROCS=`wc -l < $PBS_NODEFILE`
 NNODES=`uniq $PBS_NODEFILE | wc -l`
 
-mpirun -np $NPROCS -machinefile $PBS_NODEFILE /c14scratch/apps/siesta/v5.4/bin/siesta < input.fdf > output.txt
-
-mpirun -np $NPROCS -machinefile $PBS_NODEFILE /c14scratch/apps/siesta/v5.4/bin/tbtrans < input.fdf > tb_output.txt
+mpirun -np $NPROCS -machinefile $PBS_NODEFILE /c14scratch/apps/siesta/v5.4/bin/siesta input.fdf | tee output.txt
+mpirun -np $NPROCS -machinefile $PBS_NODEFILE /c14scratch/apps/siesta/v5.4/bin/tbtrans input.fdf | tee trans_output.txt
 
