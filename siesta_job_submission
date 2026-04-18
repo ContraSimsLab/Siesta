@@ -30,4 +30,4 @@ echo Working directory is $PBS_O_WORKDIR
 NPROCS=`wc -l < $PBS_NODEFILE`
 NNODES=`uniq $PBS_NODEFILE | wc -l`
 
-mpirun -np 56 /c14scratch/apps/siesta/v5.4/bin/siesta input.fdf | tee output.txt
+mpirun -np $NPROCS -machinefile $PBS_NODEFILE /c14scratch/apps/siesta/v5.4/bin/siesta input.fdf | tee output.txt
